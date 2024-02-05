@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"   
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body style="background-color: #555">
+        <center>
+            <h2>Adoptadores y contratos</h2>
+            <h:form id="fr1">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Ingrese nombre o apellido del adoptador"/>
+                    <p:inputText value="#{control2.texto}" >
+                        <p:ajax event="keyup" update=":fr2" listener="#{control2.filtra()}"/>
+                    </p:inputText>
+                </p:panelGrid>
+            </h:form>
+            <h:form id="fr2">
+                <p:dataTable value="#{control2.lisadop}" var="adop" paginator="true" rows="5" >
+                    <p:column headerText="Codigo">
+                        <p:outputLabel value="#{adop.adopid}"/>
+                    </p:column>
+                    <p:column headerText="DNI">
+                        <p:outputLabel value="#{adop.adopdni}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{adop.adopnom}"/>
+                    </p:column>
+                    <p:column headerText="Apellido">
+                        <p:outputLabel value="#{adop.adopape}"/>
+                    </p:column>
+                    <p:column headerText="Ver contratos">
+                        <p:commandLink value="Contratos" actionListener="#{control2.consulta(adop)}" update=":fr3"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            <h:form id="fr3">
+                <p:panelGrid columns="1">
+                    <p:outputLabel value="Nombre seleccionado:#{control2.nombre}"/>
+                </p:panelGrid>
+                <p:dataTable value="#{control2.liscon}" var="con">
+                    <p:column headerText="Codigo">
+                        <p:outputLabel value="#{con.contid}"/>
+                    </p:column>
+                    <p:column headerText="Nombre Gato">
+                        <p:outputLabel value="#{con.gatnom}"/>
+                    </p:column>
+                    <p:column headerText="Nombre local">
+                        <p:outputLabel value="#{con.localnom}"/>
+                    </p:column>
+                    <p:column headerText="direccion">
+                        <p:outputLabel value="#{con.localdirec}"/>
+                    </p:column>
+                    <p:column headerText="fecha">
+                        <p:outputLabel value="#{con.contfecha}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </center>
+    </h:body>
+</html>

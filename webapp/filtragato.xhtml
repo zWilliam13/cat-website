@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"   
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body style="background-color: #555">
+        <center>
+            <h2>Gatos y registro de vacunas</h2>
+            <h:form id="fr1">
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="Ingrese nombre del gato"/>
+                    <p:inputText value="#{control1.texto}" >
+                        <p:ajax event="keyup" update=":fr2" listener="#{control1.filtra()}"/>
+                    </p:inputText>
+                </p:panelGrid>
+            </h:form>
+            <h:form id="fr2">
+                <p:dataTable value="#{control1.lisgato}" var="gat" paginator="true" rows="5" >
+                    <p:column headerText="Codigo">
+                        <p:outputLabel value="#{gat.gatid}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{gat.gatnom}"/>
+                    </p:column>
+                    <p:column headerText="Raza">
+                        <p:outputLabel value="#{gat.razanom}"/>
+                    </p:column>
+                    <p:column headerText="Aspecto">
+                        <p:outputLabel value="#{gat.aspnom}"/>
+                    </p:column>
+                    <p:column headerText="Foto" style="text-align: center">
+                        <p:graphicImage value="/images/#{gat.gatid}.jpg" alt="No image" width="120" height="100"/>
+                    </p:column>
+                    <p:column headerText="Ver vacunas">
+                        <p:commandLink value="Vacunas" actionListener="#{control1.consulta(gat)}" update=":fr3"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            <h:form id="fr3">
+                <p:panelGrid columns="1">
+                    <p:outputLabel value="Nombre seleccionado:#{control1.gatonom}"/>
+                </p:panelGrid>
+                <p:dataTable value="#{control1.lisreg}" var="vac">
+                    <p:column headerText="Codigo">
+                        <p:outputLabel value="#{vac.regid}"/>
+                    </p:column>
+                    <p:column headerText="nombre">
+                        <p:outputLabel value="#{vac.vacnom}"/>
+                    </p:column>
+                    <p:column headerText="fecha">
+                        <p:outputLabel value="#{vac.regfecha}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </center>
+    </h:body>
+</html>
